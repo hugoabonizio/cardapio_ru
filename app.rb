@@ -50,7 +50,7 @@ set :bind, '0.0.0.0'
 
 p json_data.to_json
 
-get '/cardapio.json' do
-  content_type :json, 'charset' => 'utf-8'
+get '/' do
+  #content_type :json, 'charset' => 'utf-8'
   json_data.to_json
 end
