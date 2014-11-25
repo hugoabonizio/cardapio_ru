@@ -37,9 +37,10 @@ end
 
 data = raw_data.map { |day| parse(day) }
 json_data = Hash.new
+json_data[:RU] = Hash.new
 data.each do |day|
   unless day.size == 1
-    json_data[day[0].first] = {
+    json_data[:RU][day[0].first] = {
       data: day[0][1],
       cardapio: day[1..day.size].map { |i| i.join ' ' }
     }
@@ -47,10 +48,11 @@ data.each do |day|
 end
 
 set :bind, '0.0.0.0'
+set :protection, expect: [:json_csrf]
 
 p json_data.to_json
 
 get '/' do
-  #content_type :json, 'charset' => 'utf-8'
+  content_type :text, 'charset' => 'utf-8'
   json_data.to_json
 end
