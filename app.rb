@@ -37,11 +37,12 @@ end
 
 data = raw_data.map { |day| parse(day) }
 json_data = Hash.new
-json_data[:RU] = Hash.new
+json_data[:RU] = []
 data.each do |day|
   unless day.size == 1
-    json_data[:RU][day[0].first] = {
-      data: day[0][1],
+    json_data[:RU] << {
+      dia_semana: day[0].first,
+      dia_mes: day[0][1],
       cardapio: day[1..day.size].map { |i| i.join ' ' }
     }
   end
