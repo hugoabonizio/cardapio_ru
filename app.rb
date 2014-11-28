@@ -43,7 +43,7 @@ data.each do |day|
     json_data[:RU] << {
       dia_semana: day[0].first,
       dia_mes: day[0][1],
-      cardapio: day[1..day.size].map { |i| i.join ' ' }
+      cardapio: day[1..day.size].map { |i| i.join(' ').capitalize }
     }
   end
 end
