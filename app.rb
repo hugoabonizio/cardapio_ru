@@ -35,25 +35,24 @@ def parse(raw)
   util
 end
 
-data = raw_data.map { |day| parse(day) }
-json_data = Hash.new
-json_data[:RU] = []
-data.each do |day|
-  unless day.size == 1
-    json_data[:RU] << {
-      dia_semana: day[0].first,
-      dia_mes: day[0][1],
-      cardapio: day[1..day.size].map { |i| i.map(&:capitalize).join(' ') }
-    }
-  end
-end
-
 set :bind, '0.0.0.0'
 set :protection, expect: [:json_csrf]
 
-p json_data.to_json
-
 get '/' do
   content_type :text, 'charset' => 'utf-8'
+  
+  data = raw_data.map { |day| parse(day) }
+  json_data = Hash.new
+  json_data[:RU] = []
+  data.each do |day|
+    unless day.size == 1
+      json_data[:RU] << {
+        dia_semana: day[0].first,
+        dia_mes: day[0][1],
+        cardapio: day[1..day.size].map { |i| i.map(&:capitalize).join(' ') }
+      }
+    end
+  end
+
   json_data.to_json
 end
